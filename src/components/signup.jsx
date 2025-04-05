@@ -4,7 +4,7 @@ import '../index.css';
 
 export default function Signup(props) {
   const navigate = useNavigate();
-  const [msg,setMsg] = useState("")
+  const [msg, setMsg] = useState("");
   const [formData, setFormData] = useState({
     fullName: '',
     phoneNumber: '',
@@ -14,43 +14,32 @@ export default function Signup(props) {
     isAgency: 'yes',
   });
 
-  function handleChange (e) {
+  function handleChange(e) {
     const { name, value, type, checked } = e.target;
     setFormData({
       ...formData,
       [name]: type === 'checkbox' ? checked : value,
     });
-  };
+  }
 
-   function handleSubmit(e) {
+  function handleSubmit(e) {
     e.preventDefault();
 
-    console.log("inside formHandler")
     const { fullName, phoneNumber, email, password, companyName } = formData;
     const nameRegex = /^[a-zA-Z\s]+$/;
     const phoneRegex = /^[0-9]{10}$/;
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     const passwordRegex = /^(?=.*[a-zA-Z])(?=.*\d)[A-Za-z\d]{8,}$/;
 
-    if (!nameRegex.test(fullName)) 
-      return setMsg( "Please enter a valid full name (only letters and spaces).")
-  
-    if (!phoneRegex.test(phoneNumber)) 
-      return setMsg("Phone number must be exactly 10 digits and contain only numbers.")
-     
-    if (!emailRegex.test(email)) 
-      return setMsg("Please enter a valid email address.")
-    
-  
-    if (!passwordRegex.test(password)) 
-      return setMsg("Password must be at least 8 characters long and contain both letters and numbers.")
-    
-  
-    if (!companyName || companyName.trim().length === 0) 
-      return setMsg("Company name cannot be empty.")
-    setMsg("")
-    alert("form submitted successfully")
-    props.signupHandler(formData)
+    if (!nameRegex.test(fullName)) return setMsg("Please enter a valid full name (only letters and spaces).");
+    if (!phoneRegex.test(phoneNumber)) return setMsg("Phone number must be exactly 10 digits and contain only numbers.");
+    if (!emailRegex.test(email)) return setMsg("Please enter a valid email address.");
+    if (!passwordRegex.test(password)) return setMsg("Password must be at least 8 characters long and contain both letters and numbers.");
+    if (!companyName || companyName.trim().length === 0) return setMsg("Company name cannot be empty.");
+
+    setMsg("");
+    alert("form submitted successfully");
+    props.signupHandler(formData);
     setFormData({
       fullName: '',
       phoneNumber: '',
@@ -59,19 +48,23 @@ export default function Signup(props) {
       companyName: '',
       isAgency: 'yes',
     });
-    navigate('/login')
-    return 
-  };
+    navigate('/login');
+  }
 
   return (
-    <div className="min-h-screen h-screen flex justify-center items-center">
-      <form onSubmit={handleSubmit} className="p-4 rounded flex flex-col gap-5 container max-w-sm min-h-[80%] bg-gray-100/50 border-gray-400 border">
-        <h1 className="text-3xl mb-4">Create your <br /> PopX account</h1>
+    <div className="h-screen w-full flex justify-center items-center bg-white p-4">
+      <form 
+        onSubmit={handleSubmit} 
+        className="w-[320px] max-h-[90vh] h-full bg-gray-50 border border-gray-400 
+        rounded p-4 flex flex-col gap-4 "
+      >
+        <h1 className="text-3xl mb-2">Create your <br /> PopX account</h1>
 
         {['fullName', 'phoneNumber', 'email', 'password', 'companyName'].map((field, index) => (
-          <div key={index} className="relative border border-gray-400 rounded-lg ">
-            <label className="text-[#6c25ff] font-medium absolute -top-4 left-4 bg-gray-100 px-1 " htmlFor={field}>
-              {field === 'fullName' ? 'Full Name' : field === 'phoneNumber' ? 'Phone Number' : field === 'email' ? 'Email Address' : field === 'password' ? 'Password' : 'Company Name'}<span className="text-red-600">*</span>
+          <div key={index} className="relative border border-gray-400 rounded-lg">
+            <label className="text-[#6c25ff] font-medium absolute -top-4 left-4 bg-gray-50 px-1" htmlFor={field}>
+              {field === 'fullName' ? 'Full Name' : field === 'phoneNumber' ? 'Phone Number' : field === 'email' ? 'Email Address' : field === 'password' ? 'Password' : 'Company Name'}
+              <span className="text-red-600">*</span>
             </label>
             <input
               type={field === 'password' ? 'password' : 'text'}
@@ -80,14 +73,16 @@ export default function Signup(props) {
               value={formData[field]}
               onChange={handleChange}
               placeholder={`${field}`}
-              className="w-full p-3 rounded-xl focus:outline-none"
+              className="w-full p-2 rounded-xl focus:outline-none"
             />
           </div>
         ))}
 
-        <div className="mt-3 relative flex items-center p-4  gap-5">
-          <label className="text-indigo-500 font-medium absolute -top-4 left-4">Are you an Agency?<span className="text-red-600">*</span></label>
-          <div className="flex items-center gap-4">
+        <div className="relative flex flex-col sm:flex-row gap-2 items-start sm:items-center p-2">
+          <label className="text-indigo-500 font-medium absolute -top-4 left-4 bg-gray-100 px-1">
+            Are you an Agency?<span className="text-red-600">*</span>
+          </label>
+          <div className="flex ml-3 items-center gap-4 mt-5 sm:mt-0">
             <label className="flex items-center gap-2 cursor-pointer">
               <input
                 type="radio"
@@ -95,11 +90,10 @@ export default function Signup(props) {
                 value="yes"
                 checked={formData.isAgency === 'yes'}
                 onChange={handleChange}
-                className="size-6 accent-[#6c25ff] "
+                className="size-6 accent-[#6c25ff]"
               />
-             Yes
+              Yes
             </label>
-
             <label className="flex items-center gap-2 cursor-pointer">
               <input
                 type="radio"
@@ -107,21 +101,23 @@ export default function Signup(props) {
                 value="no"
                 checked={formData.isAgency === 'no'}
                 onChange={handleChange}
-                className="size-6  accent-[#6c25ff]  "
+                className="size-6 accent-[#6c25ff]"
               />
-             No
+              No
             </label>
           </div>
         </div>
 
-        <button type="submit" 
-        className="
-        justify-self-end font-bold
-        mt-4 p-2 rounded-xl bg-[#6c25ff] text-white hover:bg-indigo-600">Create Account</button>
+        <button 
+          type="submit"
+          className="mt-2 p-2 rounded-xl bg-[#6c25ff] text-white font-bold hover:bg-indigo-600 transition"
+        >
+          Create Account
+        </button>
 
-        <p
-        className='text-center text-sm font-medium'
-        >{msg? msg:""}</p>
+        <p className="text-center text-sm font-medium text-red-600">
+          {msg}
+        </p>
       </form>
     </div>
   );

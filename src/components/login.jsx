@@ -1,15 +1,14 @@
 import { useState } from "react";
-import { Link ,useNavigate} from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 export default function Login(props) {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
-  
     email: '',
     password: ''
   });
-  const [msg,setMsg]= useState("")
-  
+  const [msg, setMsg] = useState("");
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({
@@ -17,6 +16,7 @@ export default function Login(props) {
       [name]: value,
     });
   };
+
   function submitHandler(e) {
     e.preventDefault();
     try {
@@ -26,16 +26,23 @@ export default function Login(props) {
       alert(err.message);
     }
   }
+
   return (
-    <div className="min-h-screen h-screen flex justify-center items-center">
-      <form  onSubmit={submitHandler}
-        className="p-6 rounded flex flex-col justify-start gap-4 container max-w-sm min-h-[80%] bg-gray-100/50 border-gray-400 border">
-        <h1 className="text-2xl font-bold font-sans ">
+    <div className="h-screen flex justify-center items-center">
+      <form 
+        onSubmit={submitHandler}
+        className="p-6  box-border
+        rounded flex flex-col justify-start gap-4 
+        container w-sm h-[80%]
+        bg-gray-100/50 border-gray-400 border"
+      >
+        <h1 className="text-2xl font-bold font-sans">
           Signin to Your <br /> PopX account
         </h1>
         <p className="text-gray-400 mb-4">
           Lorem ipsum dolor sit amet consectetur adipisicing elit. Cum, ipsam.
         </p>
+
         {['email', 'password'].map((field, index) => (
           <div key={index} className="relative border border-gray-400 rounded-lg mb-4">
             <label
@@ -55,19 +62,20 @@ export default function Login(props) {
             />
           </div>
         ))}
+
         <button
           className="
-          bg-gray-300
+          bg-gray-400
           text-center text-white font-medium 
-           hover:bg-[#6e25ffef] block p-4 rounded"
+          hover:bg-[#6e25ffef] block p-4 rounded"
         >
           Create Account
         </button>
-        <p
-        className='text-center text-sm font-medium'
-        >{msg? msg:""}</p>
-        </form>
-      </div>
-    
+
+        <p className="text-center text-sm font-medium">
+          {msg ? msg : ""}
+        </p>
+      </form>
+    </div>
   );
 }
