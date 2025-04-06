@@ -33,7 +33,7 @@ export default function Login(props) {
         onSubmit={submitHandler}
         className="p-6  box-border
         rounded flex flex-col justify-start gap-4 
-        container w-sm h-[80%]
+        container w-[320px]  max-w-sm h-[70%] min-h-fit
         bg-gray-100/50 border-gray-400 border"
       >
         <h1 className="text-2xl font-bold font-sans">

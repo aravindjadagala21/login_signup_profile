@@ -39,24 +39,32 @@ export default function Signup(props) {
 
     setMsg("");
     alert("form submitted successfully");
-    props.signupHandler(formData);
-    setFormData({
-      fullName: '',
-      phoneNumber: '',
-      email: '',
-      password: '',
-      companyName: '',
-      isAgency: 'yes',
-    });
-    navigate('/login');
+    try{
+      props.signupHandler(formData);
+      setFormData({
+        fullName: '',
+        phoneNumber: '',
+        email: '',
+        password: '',
+        companyName: '',
+        isAgency: 'yes',
+      });
+    }
+    catch(err){
+      alert(err.err)
+      navigate('/login');
+    }
+   
+ 
+    
   }
 
   return (
-    <div className="h-screen w-full flex justify-center items-center bg-white p-4">
+    <div className="h-screen w-full flex justify-center items-center bg-white p-1">
       <form 
         onSubmit={handleSubmit} 
-        className="w-[320px] max-h-[90vh] h-full bg-gray-50 border border-gray-400 
-        rounded p-4 flex flex-col gap-4 "
+        className="w-[320px] max-w-sm m-2 min-h-[70%] h-fit bg-gray-50 border border-gray-400 
+        rounded sm:p-4 p-2 flex flex-col gap-4 "
       >
         <h1 className="text-3xl mb-2">Create your <br /> PopX account</h1>
 

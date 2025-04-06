@@ -7,7 +7,7 @@ export default function Intro() {
         className="
         p-4 rounded box-border
         flex flex-col justify-end gap-2
-        container w-sm h-[80%] bg-gray-100/50 border-gray-400 border"
+        container w-[320px]  max-w-sm h-[80%] bg-gray-100/50 border-gray-400 border"
       >
         <h1 className="text-2xl font-bold font-sans">
           Welcome to PopX

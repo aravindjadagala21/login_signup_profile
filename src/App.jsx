@@ -10,9 +10,11 @@ import User from './database/User'
 function App() {
 
   function signupHandler(data){
-    
+    const { email } = data;
+    if (!email) throw new Error("Fill the form");
+    const foundUser = Users.find(user => user.email === email);
+    if (foundUser) throw new Error("User  exist");
     Users.push(data)
-    console.log(Users)
   }
 
 
