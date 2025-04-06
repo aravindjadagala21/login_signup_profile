@@ -41,6 +41,7 @@ export default function Signup(props) {
     alert("form submitted successfully");
     try{
       props.signupHandler(formData);
+      navigate('/login');
       setFormData({
         fullName: '',
         phoneNumber: '',
@@ -52,10 +53,9 @@ export default function Signup(props) {
     }
     catch(err){
       alert(err.err)
-      navigate('/login');
+     
     }
    
- 
     
   }
 
